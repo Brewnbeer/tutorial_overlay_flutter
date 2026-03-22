@@ -50,6 +50,12 @@ class TutorialStep {
   /// Conditional display predicate. Return `false` to skip this step.
   final bool Function()? showIf;
 
+  /// Async callback executed **before** the target rect is resolved.
+  ///
+  /// Use this to prepare the UI (e.g. open a menu or overlay) so the
+  /// target widget is in the tree when the highlight is drawn.
+  final Future<void> Function()? beforeShow;
+
   /// Called when this step becomes visible.
   final VoidCallback? onShow;
 
@@ -67,6 +73,7 @@ class TutorialStep {
     this.tooltipPosition = TooltipPosition.auto,
     this.autoAdvanceAfter,
     this.showIf,
+    this.beforeShow,
     this.onShow,
     this.onDismiss,
   });

@@ -238,6 +238,15 @@ class _TutorialOverlayWidgetState extends State<_TutorialOverlayWidget>
 
     final step = widget.controller.currentStep;
 
+    // Run beforeShow so the caller can prepare the UI (e.g. open a menu).
+    if (step.beforeShow != null) {
+      await step.beforeShow!();
+      if (generation != _showStepGeneration || !mounted) return;
+      // Give the newly inserted widgets a frame to lay out.
+      await Future.delayed(const Duration(milliseconds: 50));
+      if (generation != _showStepGeneration || !mounted) return;
+    }
+
     // Auto-scroll target into view.
     if (_config.enableAutoScroll) {
       await _ensureVisible(step);
@@ -452,7 +461,9 @@ class _TutorialOverlayWidgetState extends State<_TutorialOverlayWidget>
       top: pos.top,
       right: pos.right,
       bottom: pos.bottom,
-      child: Align(
+      child: SingleChildScrollView(
+        physics: const ClampingScrollPhysics(),
+        child: Align(
         alignment: hAlign,
         child: Opacity(
           opacity: _tooltipController.value,
@@ -467,6 +478,7 @@ class _TutorialOverlayWidgetState extends State<_TutorialOverlayWidget>
             ),
           ),
         ),
+      ),
       ),
     );
   }

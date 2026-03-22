@@ -65,12 +65,14 @@ class TooltipPositioner {
         return TooltipPositionData(
           resolvedPosition: resolved,
           top: targetRect.bottom + spacing,
+          bottom: safeBottom,
           left: safeLeft,
           right: safeRight,
         );
       case TooltipPosition.top:
         return TooltipPositionData(
           resolvedPosition: resolved,
+          top: safeTop,
           bottom: screenSize.height - targetRect.top + spacing,
           left: safeLeft,
           right: safeRight,
@@ -80,12 +82,14 @@ class TooltipPositioner {
           resolvedPosition: resolved,
           right: screenSize.width - targetRect.left + spacing,
           top: max(safeTop, targetRect.center.dy - 80),
+          bottom: safeBottom,
         );
       case TooltipPosition.right:
         return TooltipPositionData(
           resolvedPosition: resolved,
           left: targetRect.right + spacing,
           top: max(safeTop, targetRect.center.dy - 80),
+          bottom: safeBottom,
         );
       case TooltipPosition.auto:
         // Unreachable after resolution above, but dart needs exhaustive switch.
