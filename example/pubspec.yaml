@@ -1,0 +1,20 @@
+name: tutorial_overlay_flutter_example
+description: Example app demonstrating tutorial_overlay_flutter usage.
+publish_to: none
+
+environment:
+  sdk: ^3.4.0
+
+dependencies:
+  flutter:
+    sdk: flutter
+  tutorial_overlay_flutter:
+    path: ../
+
+dev_dependencies:
+  flutter_test:
+    sdk: flutter
+  flutter_lints: ^5.0.0
+
+flutter:
+  uses-material-design: true
